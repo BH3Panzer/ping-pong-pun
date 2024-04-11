@@ -12,7 +12,8 @@ func main() {
 		rl.BeginDrawing()
 
 		rl.ClearBackground(rl.RayWhite)
-		rl.DrawText("Ping Pong Pun", 190, 200, 20, rl.LightGray)
+		rl.DrawText("Ping Pong Pun", 190, 20, 50, rl.Gray)
+		rl.DrawText("Press enter to start", 190, 100, 20, rl.Gray)
 
 		rl.EndDrawing()
 	}
