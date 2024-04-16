@@ -20,7 +20,7 @@ var player_one = Plate{
 	y:      0,
 	width:  20,
 	height: 140,
-	color:  rl.Red,
+	color:  rl.Black,
 }
 
 //create instance of plate for player two at right side of screen
@@ -29,7 +29,7 @@ var player_two = Plate{
 	y:      0,
 	width:  20,
 	height: 140,
-	color:  rl.Blue,
+	color:  rl.Black,
 }
 
 // function to check all inputs
