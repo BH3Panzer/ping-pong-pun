@@ -14,6 +14,23 @@ type Plate struct {
 	color               rl.Color
 }
 
+// ball class to play pong with infos like position and velocity
+type Ball struct {
+	x, y, width, height int32
+	color               rl.Color
+	vx, vy              int32
+}
+
+//create instance of ball
+var ball = Ball{
+	x:      640,
+	y:      360,
+	width:  20,
+	height: 20,
+	color:  rl.Black,
+	vx:     10,
+	vy:     10,
+}
 //create instance of plate for player one at left side of screen
 var player_one = Plate{
 	x:      0,
@@ -36,6 +53,28 @@ var player_two = Plate{
 func check_inputs() {
 	if rl.IsKeyPressed(rl.KeyEnter) {
 		State = "game"
+	}
+}
+
+
+// function to move ball by adding velocity to x and y position
+func move_ball() {
+	ball.x += ball.vx
+	ball.y += ball.vy
+}
+
+// function for ball collision with player one and player two
+func ball_collision() {
+	if ball.x >= player_one.x && ball.x <= player_one.x+player_one.width && ball.y >= player_one.y && ball.y <= player_one.y+player_one.height {
+		ball.vx = -ball.vx
+		} else if ball.x >= player_two.x && ball.x <= player_two.x+player_two.width && ball.y >= player_two.y && ball.y <= player_two.y+player_two.height {
+		
+	} else if ball.x <= 0 || ball.x >= 1280 {
+		ball.vx = -ball.vx
+	}
+	// check colision with top and bottom screen border
+	if ball.y <= 0 || ball.y >= 720 {
+		ball.vy = -ball.vy
 	}
 }
 
@@ -81,11 +120,16 @@ func main() {
 			rl.BeginDrawing()
 
 			move_player_one()
+			move_ball()
+			ball_collision()
 			rl.ClearBackground(rl.RayWhite)
 			// draw player one
 			rl.DrawRectangle(player_one.x, player_one.y, player_one.width, player_one.height, player_one.color)
 			// draw player two
 			rl.DrawRectangle(player_two.x, player_two.y, player_two.width, player_two.height, player_two.color)
+
+			// draw ball
+			rl.DrawRectangle(ball.x, ball.y, ball.width, ball.height, ball.color)
 
 			fps := rl.GetFPS()
 			var converted_fps = int(fps)
